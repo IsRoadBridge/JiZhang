@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.all.dao.BillMapper">
+<resultMap type="com.all.entity.Bill" id="FindBill">
+		<id column="bill_id" property="billId"/>
+		<result column="remarks" property="remarks"/>
+		<result column="money" property="money" />
+		<result column="pay" property="pay" />
+		<result column="date" property="date" />
+		<association property="user" javaType="com.all.entity.User">
+		<result column="user_name" property="userName"/>
+		</association>
+		<association property="account" javaType="com.all.entity.Account">
+		<result column="type" property="type"/>
+		<result column="smalltype" property="smallType"/>
+		</association>
+</resultMap>
+
+<resultMap type="com.all.entity.Bill2" id="FindBill2">
+ <result column="smalltype" property="smalltype" />
+		<result column="money" property="money" />
+</resultMap>
+
+	 <select id="getBillByUsername" parameterType="java.lang.String" resultMap="FindBill">
+  	SELECT*from bill where user_name=#{username}
+	</select> 
+	
+	 <select id="getBillByType" parameterType="java.lang.String" resultMap="FindBill">
+  	SELECT*from bill where type=#{0} and user_name=#{1}
+	</select> 
+	
+	 <select id="selectOne" parameterType="int" resultMap="FindBill">
+  	SELECT*from bill where bill_id=#{billId}
+	</select> 
+	
+	<select id="getBillMoney" parameterType="java.lang.String" resultMap="FindBill2">
+  	select smalltype, SUM(money) as money  from bill where type=#{0} and user_name=#{1} group by smalltype 
+	</select> 
+	
+	<delete id="deleteOne" parameterType="int">
+	delete from  bill  where  bill_id=#{billId}
+	</delete>
+	
+	<insert id="insertOne" parameterType="com.all.entity.Bill">
+	insert into  bill(user_name,type,smalltype,remarks,money,pay,date) values(#{user.userName},#{account.type},#{account.smallType},#{remarks},#{money},#{pay},#{date})
+	</insert>
+	
+	<update id="updateOne" parameterType="com.all.entity.Bill">
+	update bill set type=#{account.type},smalltype=#{account.smallType},remarks=#{remarks},money=#{money},pay=#{pay},date=#{date} where bill_id=#{billId}
+	</update>
+</mapper>

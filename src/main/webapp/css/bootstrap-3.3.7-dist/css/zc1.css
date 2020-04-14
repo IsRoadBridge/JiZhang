@@ -1,0 +1,53 @@
+.container1 {
+	margin-top: 200px;
+	margin-left: 400px;
+	background: rgba(238, 238, 238, 0.5);
+
+}
+
+h1 {
+	margin-left: 450px;
+}
+
+.form-horizontal {
+	margin-top: 50px;
+	margin-left: 100px;
+}
+
+
+
+/* body{
+				background: transparent;
+			} */
+
+div.col-sm-4 {
+	padding-top: 8px;
+}
+
+<style>.input-val {
+	width: 200px;
+	height: 32px;
+	border: 1px solid #ddd;
+	box-sizing: border-box;
+}
+
+#canvas {
+	vertical-align: middle;
+	box-sizing: border-box;
+	border: 1px solid #ddd;
+	cursor: pointer;
+}
+
+/* .btn {
+	display: block;
+	margin-top: 20px;
+	height: 32px;
+	width: 100px;
+	font-size: 16px;
+	color: #fff;
+	background-color: #457adb;
+	border: none;
+	border-radius: 50px;
+} */
+
+</style>

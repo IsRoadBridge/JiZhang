@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.all.dao.UserMapper">
+<resultMap type="com.all.entity.User" id="FindUser">
+		<id column="user_name" property="userName"/>
+		<result column="password" property="password"/>
+</resultMap>
+
+	 <select id="getUserByUser" parameterType="com.all.entity.User" resultMap="FindUser">
+  	SELECT*from user where user_name=#{userName} and password=#{password}
+	</select> 
+	
+	<insert id="insert" parameterType="com.all.entity.User">
+	insert into user(user_name,password) values(#{userName},#{password})
+	</insert>
+</mapper>

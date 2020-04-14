@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.all.dao.AccountMapper">
+<resultMap type="com.all.entity.Account" id="FindAccount">
+		<id column="account_id" property="accountId"/>
+		<result column="type" property="type"/>
+		<result column="smalltype" property="smallType"/>
+</resultMap>
+
+	 <select id="getAll"  resultMap="FindAccount">
+  	SELECT*from account
+	</select> 
+	
+	<select id="getOne" parameterType="int" resultMap="FindAccount">
+	SELECT*from account where account_id=#{accountId}
+	</select>
+	
+	<insert id="insertOne" parameterType="com.all.entity.Account">
+	insert into account(type,smalltype) values(#{type},#{smallType})
+	</insert>
+	
+	<update id="updateOne" parameterType="com.all.entity.Account">
+	update account set type=#{type},smalltype=#{smallType} where account_id=#{accountId}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+	delete from account where account_id=#{accountId}
+	</delete>
+</mapper>
