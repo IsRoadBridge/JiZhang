@@ -1,3 +1,6 @@
+<%@ page import="com.all.entity.Account" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.all.entity.Bill" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -39,27 +42,24 @@
                     class="am-icon-pencil-square-o"></span>记账</a></li>
             <li class="admin-parent" style="background-color: #ECF5FF">
                 <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 财务统计
-                    <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <span ></span></a>
                 <ul class="am-list am-collapse admin-sidebar-sub " id="collapse-nav" style="background-color: #ECF5FF">
                     <li style="background-color: #ECF5FF"><a href="sum" class="am-cf"><span
-                            class="am-icon-check"></span> 收支总览<span
-                            class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-                    <li style="background-color: #ECF5FF"><a href="allIncome"><span class="am-icon-puzzle-piece"></span>
+                            class="am-icon-bank"></span> 收支总览</a></li>
+                    <li style="background-color: #ECF5FF"><a href="allIncome"><span class="am-icon-check"></span>
                         收入总览</a></li>
-                    <li style="background-color: #ECF5FF"><a href="allCost"><span class="am-icon-th"></span> 支出总览<span
-                            class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+                    <li style="background-color: #ECF5FF"><a href="allCost"><span class="am-icon-th"></span> 支出总览</a></li>
                 </ul>
             </li>
 
             <li class="admin-parent" style="background-color: #ECF5FF">
-                <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><span class="am-icon-file"></span> 财务分析
+                <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><span class="am-icon-adjust"></span> 财务分析
                     <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
                 <ul class="am-list am-collapse admin-sidebar-sub " id="collapse-nav2" style="background-color: #ECF5FF">
                     <li style="background-color: #ECF5FF"><a href="incomeAnalysis" class="am-cf"><span
-                            class="am-icon-check"></span> 收入分析<span
-                            class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                            class="am-icon-pie-chart"></span> 收入分析</a></li>
                     <li style="background-color: #ECF5FF"><a href="costAnalysis"><span
-                            class="am-icon-puzzle-piece"></span> 支出分析</a></li>
+                            class="am-icon-circle-o-notch"></span> 支出分析</a></li>
                 </ul>
             </li>
 
@@ -96,16 +96,38 @@
                 <div class="am-form-group">
                     <label for="account-type" class="am-u-sm-3 am-form-label">账目类型</label>
                     <div class="am-u-sm-9">
-                        <input type="text" id="account-type" name="account.type" value="${one.account.type}">
-
+                        <%--<input type="text" id="account-type" name="account.type" value="${one.account.type}">--%>
+                        <select name="account.type" id="account-type">
+                            <option value=${one.account.type}>${one.account.type} </option>
+                            <% Bill one = (Bill) request.getAttribute("one");
+                                if (one.getAccount().getType().equals("消费")) {%>
+                            <option value="收入">收入</option>
+                            <% } else {%>
+                            <option value="消费">消费</option>
+                            <%}%>
+                        </select>
                     </div>
                 </div>
 
                 <div class="am-form-group">
                     <label for="smallType" class="am-u-sm-3 am-form-label">子分类</label>
                     <div class="am-u-sm-9">
-                        <input type="text" id="smallType" value="${one.account.smallType}" name="account.smallType">
-
+                        <%--<input type="text" id="smallType" value="${one.account.smallType}" name="account.smallType">--%>
+                        <select id="smallType" name="account.smallType">
+                            <option value=${one.account.smallType} selected>${one.account.smallType} </option>
+                            <% Bill bill = (Bill) request.getAttribute("one");
+                                List<Account> accounts = (List<Account>) request.getAttribute("all");
+                                for (int i = 0; i < accounts.size(); i++) {
+                                    if (accounts.get(i).getSmallType().equals(bill.getAccount().getSmallType())) {
+                                        continue;
+                                    }
+                            %>
+                            <option value=<%=accounts.get(i).getSmallType()%>><%=accounts.get(i).getSmallType()%>
+                            </option>
+                            <%
+                                }
+                            %>
+                        </select>
                     </div>
                 </div>
 
@@ -134,7 +156,8 @@
                     <label for="date" class="am-u-sm-3 am-form-label">日期</label>
                     <div class="am-u-sm-9">
                         <input type="date" name="date"
-                               value="<fmt:formatDate value="${one.date}" pattern="yyyy-MM-dd"></fmt:formatDate>" id="date">
+                               value="<fmt:formatDate value="${one.date}" pattern="yyyy-MM-dd"></fmt:formatDate>"
+                               id="date">
                     </div>
                 </div>
 

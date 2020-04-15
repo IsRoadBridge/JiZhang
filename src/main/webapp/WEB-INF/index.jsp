@@ -35,22 +35,28 @@
     <ul class="am-list admin-sidebar-list" style="background-color: #ECF5FF">
       <li style="background-color: #ECF5FF"><a href="index"><span class="am-icon-home"></span> 首页</a></li>
       <li style="background-color: #ECF5FF"><a href="accountAdd"><span class="am-icon-pencil-square-o"></span>记账</a></li>
-      <li class="admin-parent" style="background-color: #ECF5FF">
-        <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 财务统计 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-        <ul class="am-list am-collapse admin-sidebar-sub " id="collapse-nav" style="background-color: #ECF5FF">
-          <li style="background-color: #ECF5FF"><a href="sum" class="am-cf"><span class="am-icon-check"></span> 收支总览<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-          <li style="background-color: #ECF5FF"><a href="allIncome"><span class="am-icon-puzzle-piece"></span> 收入总览</a></li>
-          <li style="background-color: #ECF5FF"><a href="allCost"><span class="am-icon-th"></span> 支出总览<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
-        </ul>
-      </li>
-      
-      <li class="admin-parent" style="background-color: #ECF5FF">
-        <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><span class="am-icon-file"></span> 财务分析 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-        <ul class="am-list am-collapse admin-sidebar-sub " id="collapse-nav2" style="background-color: #ECF5FF">
-          <li style="background-color: #ECF5FF"><a href="incomeAnalysis" class="am-cf"><span class="am-icon-check"></span> 收入分析<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-          <li style="background-color: #ECF5FF"><a href="costAnalysis"><span class="am-icon-puzzle-piece"></span> 支出分析</a></li>
-        </ul>
-      </li>
+        <li class="admin-parent" style="background-color: #ECF5FF">
+            <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 财务统计
+                <span ></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub " id="collapse-nav" style="background-color: #ECF5FF">
+                <li style="background-color: #ECF5FF"><a href="sum" class="am-cf"><span
+                        class="am-icon-bank"></span> 收支总览</a></li>
+                <li style="background-color: #ECF5FF"><a href="allIncome"><span class="am-icon-check"></span>
+                    收入总览</a></li>
+                <li style="background-color: #ECF5FF"><a href="allCost"><span class="am-icon-th"></span> 支出总览</a></li>
+            </ul>
+        </li>
+
+        <li class="admin-parent" style="background-color: #ECF5FF">
+            <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><span class="am-icon-adjust"></span> 财务分析
+                <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub " id="collapse-nav2" style="background-color: #ECF5FF">
+                <li style="background-color: #ECF5FF"><a href="incomeAnalysis" class="am-cf"><span
+                        class="am-icon-pie-chart"></span> 收入分析</a></li>
+                <li style="background-color: #ECF5FF"><a href="costAnalysis"><span
+                        class="am-icon-circle-o-notch"></span> 支出分析</a></li>
+            </ul>
+        </li>
       
       <li style="background-color: #ECF5FF"><a href="typeUpdate"><span class="am-icon-table"></span> 账目类别修改</a>
       </li>  
@@ -90,7 +96,7 @@
                <td>${it.count}</td>
                <td>${bill.account.type}</td>
                <td>${bill.account.smallType}</td>
-               <td>${bill.money}</td>
+               <td>￥${bill.money}</td>
                <td>${bill.pay}</td>
                <td>${bill.remarks}</td>
                <td><fmt:formatDate value="${bill.date}" pattern="yyyy-MM-dd"/></td>

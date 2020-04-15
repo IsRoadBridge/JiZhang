@@ -27,18 +27,18 @@ import com.all.service.UserService;
 public class BillController {
 
     @Autowired
-    private BillService bs;
+    private BillService billService;
 
     @Autowired
-    private UserService us;
+    private UserService userService;
 
     private static User uss = null;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String gologin(User user, HttpServletRequest request) {
-        if (us.getUserByUser(user) != null) {
+        if (userService.getUserByUser(user) != null) {
             uss = user;
-            List<Bill> ls = bs.getBillByUsername(user.getUserName());
+            List<Bill> ls = billService.getBillByUsername(user.getUserName());
             request.setAttribute("all", ls);
             return "index";
         } else {
@@ -50,8 +50,8 @@ public class BillController {
 
     @RequestMapping("/billDelete")
     public String billDelete(@Param("id") int id, HttpServletRequest request) {
-        bs.deleteOne(id);
-        List<Bill> ls = bs.getBillByUsername(uss.getUserName());
+        billService.deleteOne(id);
+        List<Bill> ls = billService.getBillByUsername(uss.getUserName());
         request.setAttribute("all", ls);
         return "index";
     }
@@ -59,15 +59,15 @@ public class BillController {
     @RequestMapping("/billInsert")
     public String billInsert(Bill bill, HttpServletRequest request) {
         bill.setUser(uss);
-        bs.insertOne(bill);
-        List<Bill> ls = bs.getBillByUsername(uss.getUserName());
+        billService.insertOne(bill);
+        List<Bill> ls = billService.getBillByUsername(uss.getUserName());
         request.setAttribute("all", ls);
         return "index";
     }
 
     @RequestMapping("/index")
     public String index(HttpServletRequest request) {
-        List<Bill> ls = bs.getBillByUsername(uss.getUserName());
+        List<Bill> ls = billService.getBillByUsername(uss.getUserName());
         request.setAttribute("all", ls);
         return "index";
     }
@@ -75,36 +75,30 @@ public class BillController {
     @RequestMapping(value = "/billUpdate", method = RequestMethod.GET)
     public String billUpdate(Bill bill, HttpServletRequest request) {
         bill.setUser(uss);
-        bs.updateOne(bill);
-        List<Bill> ls = bs.getBillByUsername(uss.getUserName());
+        billService.updateOne(bill);
+        List<Bill> ls = billService.getBillByUsername(uss.getUserName());
         request.setAttribute("all", ls);
         return "index";
     }
 
-    @RequestMapping("/indexUpdate")
-    public String goIndexUpdate(int Bid, HttpServletRequest request) {
-        Bill bill = bs.selectOne(Bid);
-        request.setAttribute("one", bill);
-        return "indexUpdate";
-    }
 
     @RequestMapping("/allCost")
     public String goAllCost(HttpServletRequest request) {
-        List<Bill> all = bs.getBillByType("消费", uss.getUserName());
+        List<Bill> all = billService.getBillByType("消费", uss.getUserName());
         request.setAttribute("all", all);
         return "allCost";
     }
 
     @RequestMapping("/allIncome")
     public String goAllIncome(HttpServletRequest request) {
-        List<Bill> all = bs.getBillByType("收入", uss.getUserName());
+        List<Bill> all = billService.getBillByType("收入", uss.getUserName());
         request.setAttribute("all", all);
         return "allIncome";
     }
 
     @RequestMapping("/sum")
     public String goSum(HttpServletRequest request) {
-        List<Bill> all = bs.getBillByUsername(uss.getUserName());
+        List<Bill> all = billService.getBillByUsername(uss.getUserName());
         request.setAttribute("all", all);
         return "sum";
     }
@@ -116,7 +110,7 @@ public class BillController {
 
     @RequestMapping(value = "/costAnalysis", method = RequestMethod.GET)
     public String goCostAnalysis(HttpServletResponse response) throws IOException {
-        List<Bill2> all = bs.getBillMoney("消费", uss.getUserName());
+        List<Bill2> all = billService.getBillMoney("消费", uss.getUserName());
         System.out.println(all);
         List<String> smalltype = new ArrayList<>();
         List<Double> money = new ArrayList<>();
@@ -136,10 +130,5 @@ public class BillController {
         return "costAnalysis";
     }
 
-    @RequestMapping("/accountAdd")
-    public String goAccountAdd(HttpServletRequest request) {
-        List<Bill> bills = bs.getBillByUsername(uss.getUserName());
-        request.setAttribute("all",bills);
-        return "accountAdd";
-    }
+
 }
