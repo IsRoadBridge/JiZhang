@@ -32,7 +32,7 @@ public class BillController {
     @Autowired
     private UserService userService;
 
-    private static User uss = null;
+    public static User uss = null;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String gologin(User user, HttpServletRequest request) {
@@ -42,7 +42,9 @@ public class BillController {
             request.setAttribute("all", ls);
             return "index";
         } else {
-            request.setAttribute("error", "用户名或者密码错误！");
+            if(user.getUserName()!=null) {
+                request.setAttribute("error", "用户名或者密码错误！");
+            }
             return "login";
         }
 
