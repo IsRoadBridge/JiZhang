@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.all.entity.Bill;
+import com.all.entity.User;
 import com.all.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,10 +23,12 @@ public class AccountController {
 	@Autowired
 	private BillService billService;
 
+    private User user = new User();
 	@RequestMapping("/typeUpdate")
 	public String goTypeUpdate(HttpServletRequest request) {
 		List<Account> all = accountService.getAll();
 		request.setAttribute("all", all);
+		request.setAttribute("username",user.getUserName());
 		return "typeUpdate";
 	}
 
@@ -33,6 +36,7 @@ public class AccountController {
 	public String goTypeUpdateDo(int id, HttpServletRequest request) {
 		Account account = accountService.getOne(id);
 		request.setAttribute("one", account);
+		request.setAttribute("username", user.getUserName());
 		return "typeUpdateDo";
 	}
 
@@ -41,6 +45,7 @@ public class AccountController {
 		accountService.delete(id);
 		List<Account> all = accountService.getAll();
 		request.setAttribute("all", all);
+		request.setAttribute("username", user.getUserName());
 		return "typeUpdate";
 	}
 
@@ -49,11 +54,13 @@ public class AccountController {
 		accountService.updateOne(account);
 		List<Account> all = accountService.getAll();
 		request.setAttribute("all", all);
+		request.setAttribute("username", user.getUserName());
 		return "typeUpdate";
 	}
 
 	@RequestMapping("/typeAdd")
-	public String gotypeAdd() {
+	public String gotypeAdd(HttpServletRequest request) {
+		request.setAttribute("username", user.getUserName());
 		return "typeAdd";
 	}
 
@@ -62,6 +69,7 @@ public class AccountController {
 		accountService.insertOne(account);
 		List<Account> all = accountService.getAll();
 		request.setAttribute("all", all);
+		request.setAttribute("username", user.getUserName());
 		return "typeUpdate";
 	}
 
@@ -69,6 +77,7 @@ public class AccountController {
 	public String goAccountAdd(HttpServletRequest request) {
 		List<Account> accounts = accountService.getAll();
 		request.setAttribute("all",accounts);
+		request.setAttribute("username", user.getUserName());
 		return "accountAdd";
 	}
 
@@ -78,6 +87,7 @@ public class AccountController {
         List<Account> accounts = accountService.getAll();
 		request.setAttribute("one", bill);
 		request.setAttribute("all", accounts);
+		request.setAttribute("username", user.getUserName());
 		return "indexUpdate";
 	}
 }

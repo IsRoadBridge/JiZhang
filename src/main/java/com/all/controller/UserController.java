@@ -12,10 +12,10 @@ import com.all.service.UserService;
 public class UserController {
 
 	@Autowired
-	private BillService bs;
+	private BillService billService;
 
 	@Autowired
-	private UserService us;
+	private UserService userService;
 
 	@RequestMapping("/gologin")
 	public String goLogin() {
@@ -44,7 +44,7 @@ public class UserController {
 
 	@RequestMapping("/registerDo")
 	public String goRegisterDo(User user) {
-		us.insert(user);
+		userService.insert(user);
 		return "login";
 	}
 }

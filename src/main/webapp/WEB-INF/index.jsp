@@ -23,7 +23,7 @@
 <header class="am-topbar admin-header" style="background-color: #8080C0">
   <div class="am-topbar-brand">
     <strong style="color: white">CFO</strong> <small style="color: white">记账管理系统</small>
-    <span style="color: white;margin-left:1070px; " > 欢迎你管理员 </span>
+    <span style="color: white;margin-left:1050px; " > 欢迎你${username} </span>
      <a href="gologin" type="button" class="am-btn am-btn-primary" style="margin-left: 10px;color: white">退出登录</a>
   </div>
   

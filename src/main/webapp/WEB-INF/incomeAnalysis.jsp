@@ -3,7 +3,7 @@
 <html class="no-js">
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>首页</title>
+  <title>收入分析</title>
   <link rel="icon" type="image/png" href="assets/i/favicon.png">
   <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
   <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
@@ -15,109 +15,75 @@
 <script type="text/javascript">
 function go(){
     var mychart = echarts.init(document.getElementById('myDiv'));
-    var url ="incomeAnalysis";
-    alert(url);
+    var url ="incomeAnalysisDo";
     $.ajax({
-    	   url:url,    //路径
-		   dataType:"json",  //返回类型
-		   type:"get",   //请求方式
-		   success:function(json){   //回调函数
-			   alert(json.smalltype);
-			   alert(json.money);
-			   var option = {
-			    	    title: {
-			    	        text: '个人消费情况',
-			    	        subtext: '纯属虚构',
-			    	        left: 'center'
-			    	    },
-			    	    tooltip: {
-			    	        trigger: 'item',
-			    	        formatter: '{a} <br/>{b} : {c} ({d}%)'
-			    	    },
-			    	    legend: {
-			    	        orient: 'vertical',
-			    	        left: 'left',
-			    	        data: ['一日三餐', '饮料', '联盟广告', '视频广告', '搜索引擎']
-			    	    },
-			    	    series: [
-			    	        {
-			    	            name: '访问来源',
-			    	            type: 'pie',
-			    	            radius: '55%',
-			    	            center: ['50%', '60%'],
-			    	            data: [
-			    	                {value: 335, name: '直接访问'},
-			    	                {value: 310, name: '邮件营销'},
-			    	                {value: 234, name: '联盟广告'},
-			    	                {value: 135, name: '视频广告'},
-			    	                {value: 1548, name: '搜索引擎'}
-			    	            ],
-			    	            emphasis: {
-			    	                itemStyle: {
-			    	                    shadowBlur: 10,
-			    	                    shadowOffsetX: 0,
-			    	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-			    	                }
-			    	            }
-			    	        }
-			    	    ]
-			    	};
-		   },
-		   error:function(){
-    var option = {
-    	    title: {
-    	        text: '个人收入情况',
-    	        subtext: '纯属虚构',
-    	        left: 'center'
-    	    },
-    	    tooltip: {
-    	        trigger: 'item',
-    	        formatter: '{a} <br/>{b} : {c} ({d}%)'
-    	    },
-    	    legend: {
-    	        orient: 'vertical',
-    	        left: 'left',
-    	        data: ['工资', '余额宝', '副业']
-    	    },
-    	    series: [
-    	        {
-    	            name: '访问来源',
-    	            type: 'pie',
-    	            radius: '55%',
-    	            center: ['50%', '60%'],
-    	            data: [
-    	                {value: 8, name: '工资'},
-    	                {value: 20, name: '余额宝'},
-    	                {value: 50, name: '副业'},
-    	               
-    	            ],
-    	            emphasis: {
-    	                itemStyle: {
-    	                    shadowBlur: 10,
-    	                    shadowOffsetX: 0,
-    	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-    	                }
-    	            }
-    	        }
-    	    ]
-    	};
+        url:url,    //路径
+        dataType:"json",  //返回类型
+        type:"post",   //请求方式
+        success:function(data){//回调函数
+            var option = {
+                title: {
+                    text: '个人收入情况',
+                    // subtext: '纯属虚构',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: data.smallType
+                },
+                series:[
+                    {
+                        name: '收入类型',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '60%'],
+                        data: [
+                            <% int number =(int) request.getAttribute("number");
+                            for(int i = 0; i <number; i++) {
+                              if(i<number-1){
+                                  %>
+                            {value: data.moneymuch[<%=i%>], name: data.smallType[<%=i%>]},
+                            <%}
+                            if(i==number-1){
+                                %>
+                            {value: data.moneymuch[<%=i%>], name: data.smallType[<%=i%>]},
+                            <%
+                              }
+                            }
 
-    mychart.setOption(option);
-    	 }
+                            %>
+
+                        ],
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            mychart.setOption(option);
+        }
     });
 }
-
 
 </script>
 
   
 </head>
-<body>
+<body onload="go()">
 
 <header class="am-topbar admin-header" style="background-color: #8080C0">
   <div class="am-topbar-brand">
     <strong style="color: white">CFO</strong> <small style="color: white">记账管理系统</small>
-    <span style="color: white;margin-left:1070px; " > 欢迎你管理员 </span>
+    <span style="color: white;margin-left:1050px; " > 欢迎你${username} </span>
      <a href="gologin" type="button" class="am-btn am-btn-primary" style="margin-left: 10px;color: white">退出登录</a>
   </div>
   
@@ -170,11 +136,10 @@ function go(){
   <div class="admin-content">
 
     <div class="am-cf am-padding">
-      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong><strong>/</strong><small>支出分析</small> </div>
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong><strong>/</strong><small>收入分析</small> </div>
     </div>
      <div style="width: 800px;height: 500px;" id = "myDiv">
       </div>
-       <button onclick="go()">点击</button>
     </div>
   </div>
 </body>

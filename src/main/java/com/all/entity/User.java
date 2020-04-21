@@ -1,7 +1,7 @@
 package com.all.entity;
 
 public class User {
-	private String userName;
+	private static String userName;
 	private String password;
 
 	public String getUserName() {

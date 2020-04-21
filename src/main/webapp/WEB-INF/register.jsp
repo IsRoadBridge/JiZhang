@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="css/bootstrap-3.3.7-dist/css/bootstrap.css">
 <script type="text/javascript" src="css/jquery.js"></script>
-<title>登录</title>
+<title>注册</title>
 </head>
 <body style="background-image: url('images/login.png') ;background-repeat: no-repeat;background-size:cover">
 

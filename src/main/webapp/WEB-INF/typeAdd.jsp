@@ -3,7 +3,7 @@
 <html class="no-js">
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>首页</title>
+  <title>添加账目类型</title>
   <meta name="description" content="这是一个 index 页面">
   <meta name="keywords" content="index">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -20,7 +20,7 @@
 <header class="am-topbar admin-header" style="background-color: #8080C0">
   <div class="am-topbar-brand">
     <strong style="color: white">CFO</strong> <small style="color: white">记账管理系统</small>
-    <span style="color: white;margin-left:1070px; " > 欢迎你管理员 </span>
+    <span style="color: white;margin-left:1050px; " > 欢迎你${username} </span>
      <a href="gologin" type="button" class="am-btn am-btn-primary" style="margin-left: 10px;color: white">退出登录</a>
   </div>
   
