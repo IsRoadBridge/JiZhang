@@ -97,8 +97,8 @@
                <td>${bill.account.type}</td>
                <td>${bill.account.smallType}</td>
                <td>￥${bill.money}</td>
-               <td>${bill.pay}</td>
                <td>${bill.remarks}</td>
+               <td>${bill.pay}</td>
                <td><fmt:formatDate value="${bill.date}" pattern="yyyy-MM-dd"/></td>
 
               <td>
